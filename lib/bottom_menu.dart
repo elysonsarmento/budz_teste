@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'module/profile/bloc/profive_bloc.dart';
 import 'widgets/icons/icons_string.dart';
 
 class BottomWidget extends StatefulWidget {
@@ -44,7 +46,14 @@ class _BottomWidgetState extends State<BottomWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: _screens[_currentIndex],
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider<ProfiveBloc>(
+              create: (context) => ProfiveBloc(),
+            ),
+          ],
+          child: _screens[_currentIndex],
+        ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
