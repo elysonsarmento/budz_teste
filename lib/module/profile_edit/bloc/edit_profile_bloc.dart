@@ -9,7 +9,6 @@ part 'edit_profile_state.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   final UserUseCase _userUseCase;
-  final String teste = "teste";
   EditProfileBloc(this._userUseCase) : super(EditProfileLoading()) {
     on<EditProfileEvent>((event, emit) {});
 

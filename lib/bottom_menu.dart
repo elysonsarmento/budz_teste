@@ -47,143 +47,146 @@ class _BottomWidgetState extends State<BottomWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        '/profile': (context) => const ProfileView(),
-        '/profile_edit': (context) => const ProfileEditView(),
-        '/delete_reason': (context) => const DeleteReasonPage(),
-        '/delete_confirm': (context) => const DeleteCofirm(),
-      },
-      home: Scaffold(
-        body: MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider<UserRepository>(
-              create: (context) => UserRemoteRepository(),
-            ),
-            RepositoryProvider(
-                create: (context) => UserUseCase(
-                    userRepository: context.read<UserRepository>())),
-          ],
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider<ProfiveBloc>(
-                create: (context) => ProfiveBloc(context.read<UserUseCase>())
-                  ..add(
-                    ProfiveFetchUser(),
-                  ),
-              ),
-              BlocProvider<EditProfileBloc>(
-                  create: (context) =>
-                      EditProfileBloc(context.read<UserUseCase>())
-                        ..add(
-                          ProfileFetchUser(),
-                        )),
-            ],
-            child: _screens[_currentIndex],
-          ),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<UserRepository>(
+          create: (context) => UserRemoteRepository(),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _currentIndex,
-          selectedLabelStyle: const TextStyle(
-              color: Color(
-                0xFF2371EE,
+        RepositoryProvider(
+            create: (context) =>
+                UserUseCase(userRepository: context.read<UserRepository>())),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<ProfiveBloc>(
+            create: (context) => ProfiveBloc(context.read<UserUseCase>())
+              ..add(
+                ProfiveFetchUser(),
               ),
-              fontWeight: FontWeight.w600,
-              fontSize: 12),
-          unselectedLabelStyle: const TextStyle(
-              color: Color(
-                0xFF3A484D,
-              ),
-              fontWeight: FontWeight.w400,
-              fontSize: 12),
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
+          ),
+          BlocProvider<EditProfileBloc>(
+              create: (context) => EditProfileBloc(context.read<UserUseCase>())
+                ..add(
+                  ProfileFetchUser(),
+                )),
+        ],
+        child: MaterialApp(
+          routes: {
+            '/profile': (context) => const ProfileView(),
+            '/profile_edit': (context) => const ProfileEditView(),
+            '/delete_reason': (context) => const DeleteReasonPage(),
+            '/delete_confirm': (context) => const DeleteCofirm(),
           },
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Container(
-                padding: _currentIndex == 0
-                    ? const EdgeInsets.symmetric(horizontal: 12, vertical: 4)
-                    : null,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFDFFAFD),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: SvgPicture.asset(
-                  homeIcon,
-                  width: 16,
-                  height: 16,
+          home: Scaffold(
+            body: _screens[_currentIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: _currentIndex,
+              selectedLabelStyle: const TextStyle(
                   color: Color(
-                    _currentIndex == 0 ? 0xFF2371EE : 0xFF3A484D,
+                    0xFF2371EE,
                   ),
-                ),
-              ),
-              label: 'Início',
-            ),
-            BottomNavigationBarItem(
-              icon: Container(
-                padding: _currentIndex == 1
-                    ? const EdgeInsets.symmetric(horizontal: 12, vertical: 4)
-                    : null,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFDFFAFD),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: SvgPicture.asset(
-                  gridIcon,
-                  width: 16,
-                  height: 16,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12),
+              unselectedLabelStyle: const TextStyle(
                   color: Color(
-                    _currentIndex == 1 ? 0xFF2371EE : 0xFF3A484D,
+                    0xFF3A484D,
                   ),
-                ),
-              ),
-              label: 'Jornadas',
-            ),
-            BottomNavigationBarItem(
-              icon: Container(
-                padding: _currentIndex == 2
-                    ? const EdgeInsets.symmetric(horizontal: 12, vertical: 4)
-                    : null,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFDFFAFD),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: SvgPicture.asset(
-                  smsIcon,
-                  width: 16,
-                  height: 16,
-                  color: Color(
-                    _currentIndex == 2 ? 0xFF2371EE : 0xFF3A484D,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12),
+              onTap: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Container(
+                    padding: _currentIndex == 0
+                        ? const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4)
+                        : null,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFDFFAFD),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SvgPicture.asset(
+                      homeIcon,
+                      width: 16,
+                      height: 16,
+                      color: Color(
+                        _currentIndex == 0 ? 0xFF2371EE : 0xFF3A484D,
+                      ),
+                    ),
                   ),
+                  label: 'Início',
                 ),
-              ),
-              label: 'Chatbot',
-            ),
-            BottomNavigationBarItem(
-              icon: Container(
-                padding: _currentIndex == 3
-                    ? const EdgeInsets.symmetric(horizontal: 12, vertical: 4)
-                    : null,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFDFFAFD),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: SvgPicture.asset(
-                  personIcon,
-                  width: 16,
-                  height: 16,
-                  color: Color(
-                    _currentIndex == 3 ? 0xFF2371EE : 0xFF3A484D,
+                BottomNavigationBarItem(
+                  icon: Container(
+                    padding: _currentIndex == 1
+                        ? const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4)
+                        : null,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFDFFAFD),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SvgPicture.asset(
+                      gridIcon,
+                      width: 16,
+                      height: 16,
+                      color: Color(
+                        _currentIndex == 1 ? 0xFF2371EE : 0xFF3A484D,
+                      ),
+                    ),
                   ),
+                  label: 'Jornadas',
                 ),
-              ),
-              label: 'Perfil',
+                BottomNavigationBarItem(
+                  icon: Container(
+                    padding: _currentIndex == 2
+                        ? const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4)
+                        : null,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFDFFAFD),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SvgPicture.asset(
+                      smsIcon,
+                      width: 16,
+                      height: 16,
+                      color: Color(
+                        _currentIndex == 2 ? 0xFF2371EE : 0xFF3A484D,
+                      ),
+                    ),
+                  ),
+                  label: 'Chatbot',
+                ),
+                BottomNavigationBarItem(
+                  icon: Container(
+                    padding: _currentIndex == 3
+                        ? const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4)
+                        : null,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFDFFAFD),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SvgPicture.asset(
+                      personIcon,
+                      width: 16,
+                      height: 16,
+                      color: Color(
+                        _currentIndex == 3 ? 0xFF2371EE : 0xFF3A484D,
+                      ),
+                    ),
+                  ),
+                  label: 'Perfil',
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
