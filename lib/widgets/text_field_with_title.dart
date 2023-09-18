@@ -5,6 +5,7 @@ class TextFieldWithTitle extends StatelessWidget {
   final String? labelText;
   final bool? enabled;
   final Widget? suffixIcon;
+  final String? initialValue;
 
   const TextFieldWithTitle({
     super.key,
@@ -12,6 +13,7 @@ class TextFieldWithTitle extends StatelessWidget {
     this.labelText,
     this.enabled,
     this.suffixIcon,
+    this.initialValue,
   });
 
   @override
@@ -29,6 +31,7 @@ class TextFieldWithTitle extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         TextField(
+          controller: TextEditingController(text: initialValue),
           enabled: enabled,
           decoration: InputDecoration(
             suffixIcon: suffixIcon,

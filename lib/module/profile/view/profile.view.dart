@@ -12,23 +12,14 @@ class ProfileView extends StatelessWidget {
     return BlocBuilder<ProfiveBloc, ProfiveState>(
       builder: (context, state) {
         switch (state.runtimeType) {
-          case ProfiveInitial:
-            state as ProfiveInitial;
+          case ProfiveSuccessState:
+            state as ProfiveSuccessState;
             return SucessProfileView(
               state: state,
             );
           default:
-            return Container(
-              color: Colors.yellow,
-              child: const Center(
-                child: Text(
-                  "Erro",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            return Center(
+              child: CircularProgressIndicator(),
             );
         }
       },

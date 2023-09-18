@@ -6,7 +6,7 @@ import '../../../../widgets/icons/icons_string.dart';
 import '../../bloc/profive_bloc.dart';
 
 class SucessProfileView extends StatelessWidget {
-  final ProfiveInitial state;
+  final ProfiveSuccessState state;
   const SucessProfileView({
     Key? key,
     required this.state,
@@ -25,12 +25,12 @@ class SucessProfileView extends StatelessWidget {
               ),
               constraints: const BoxConstraints.expand(height: 100),
               color: const Color(0xFFFFFFFF),
-              child: const Row(
+              child: Row(
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 25,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -38,14 +38,14 @@ class SucessProfileView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "John",
-                        style: TextStyle(
+                        state.userEntity.fullname,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 18,
                             color: Color(0xFF171D1F)),
                       ),
                       Text(
-                        "johndoe@gmail.com",
+                        state.userEntity.email,
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,

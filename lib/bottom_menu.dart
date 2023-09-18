@@ -1,9 +1,13 @@
+import 'package:budz_teste/domain/usecase/user_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'data/repository/user_remote_repository.dart';
+import 'domain/repository/user_repository.dart';
 import 'module/profile/bloc/profive_bloc.dart';
 import 'module/profile/view/profile.view.dart';
+import 'module/profile_edit/bloc/edit_profile_bloc.dart';
 import 'module/profile_edit/view/page/delet_confirm_page.dart';
 import 'module/profile_edit/view/page/delete_reason_page.dart';
 import 'module/profile_edit/view/profile_edit_view.dart';
@@ -51,16 +55,32 @@ class _BottomWidgetState extends State<BottomWidget> {
         '/delete_confirm': (context) => const DeleteCofirm(),
       },
       home: Scaffold(
-        body: MultiBlocProvider(
+        body: MultiRepositoryProvider(
           providers: [
-            BlocProvider<ProfiveBloc>(
-              create: (context) => ProfiveBloc(),
+            RepositoryProvider<UserRepository>(
+              create: (context) => UserRemoteRepository(),
             ),
-            BlocProvider<ProfiveBloc>(
-              create: (context) => ProfiveBloc(),
-            ),
+            RepositoryProvider(
+                create: (context) => UserUseCase(
+                    userRepository: context.read<UserRepository>())),
           ],
-          child: _screens[_currentIndex],
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<ProfiveBloc>(
+                create: (context) => ProfiveBloc(context.read<UserUseCase>())
+                  ..add(
+                    ProfiveFetchUser(),
+                  ),
+              ),
+              BlocProvider<EditProfileBloc>(
+                  create: (context) =>
+                      EditProfileBloc(context.read<UserUseCase>())
+                        ..add(
+                          ProfileFetchUser(),
+                        )),
+            ],
+            child: _screens[_currentIndex],
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
