@@ -31,6 +31,7 @@ dependencies:
   bloc: ^8.1.2
   flutter_bloc: ^8.1.3
   flutter_svg: ^2.0.7
+  package_info_plus: ^4.1.0
   flutter:
     sdk: flutter
 
@@ -67,6 +68,12 @@ flutter:
     - assets/icon/sms.svg
     - assets/icon/home.svg
     - assets/icon/person.svg
+    - assets/icon/clicker.svg
+    - assets/icon/lock.svg
+    - assets/icon/logout.svg
+    - assets/icon/pet.svg
+    - assets/icon/premium.svg
+    - assets/icon/personNotSelected.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

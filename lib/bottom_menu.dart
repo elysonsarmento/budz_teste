@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'module/profile/bloc/profive_bloc.dart';
+import 'module/profile/view/profile.view.dart';
 import 'widgets/icons/icons_string.dart';
 
 class BottomWidget extends StatefulWidget {
@@ -34,12 +35,7 @@ class _BottomWidgetState extends State<BottomWidget> {
         child: Text('Tela chat'),
       ),
     ),
-    Container(
-      color: Colors.yellow,
-      child: const Center(
-        child: Text('Tela Perfil'),
-      ),
-    ),
+    ProfileView()
   ];
 
   @override
