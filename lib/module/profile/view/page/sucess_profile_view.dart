@@ -82,8 +82,12 @@ class SucessProfileView extends StatelessWidget {
                               const Divider(
                                 height: 1,
                               ),
-                              const ButtonWithTwoIcons(
+                              ButtonWithTwoIcons(
                                   name: "Editar Perfil",
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/profile_edit");
+                                  },
                                   stringLeftIcon: personNotSelectedIcon),
                               const Divider(
                                 height: 1,

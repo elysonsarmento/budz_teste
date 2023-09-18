@@ -8,3 +8,6 @@ String lockIcon = 'assets/icon/lock.svg';
 String logoutIcon = 'assets/icon/logout.svg';
 String petIcon = 'assets/icon/pet.svg';
 String premiumIcon = 'assets/icon/premium.svg';
+String dogBadImage = 'assets/Triste.svg';
+String logoImage = 'assets/logotype.svg';
+String dogByeImage = 'assets/Até_Logo.svg';

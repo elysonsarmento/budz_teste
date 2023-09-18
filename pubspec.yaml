@@ -74,6 +74,9 @@ flutter:
     - assets/icon/pet.svg
     - assets/icon/premium.svg
     - assets/icon/personNotSelected.svg
+    - assets/Triste.svg
+    - assets/logotype.svg
+    - assets/Até_Logo.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
